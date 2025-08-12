@@ -112,4 +112,6 @@ All colors MUST be HSL.
   .pulse { @apply animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]; }
   .bg-gradient-brand { background-image: var(--gradient-brand); }
   .text-gradient-brand { background-image: var(--gradient-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .smooth { scroll-behavior: smooth; }
+  .card-hover { @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1; }
 }

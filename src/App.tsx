@@ -23,7 +23,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <SiteHeader />
-          <main>
+          <main id="main">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/services" element={<Services />} />

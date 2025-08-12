@@ -32,8 +32,27 @@ const Contact = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const message = String(data.get('message') || '').trim();
+
+    if (name.length < 2) {
+      toast.error('Please enter your full name.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+    if (message.length < 10) {
+      toast.error('Please write a short message (at least 10 characters).');
+      return;
+    }
+
     toast.success("Thanks! We’ll get back within 24 hours.");
-    (e.currentTarget as HTMLFormElement).reset();
+    form.reset();
   };
 
   return (
@@ -79,7 +98,7 @@ const Contact = () => {
               <SelectItem value="mlops">Cloud, DevOps & MLOps</SelectItem>
             </SelectContent>
           </Select>
-          <Textarea name="message" placeholder="Short message" rows={5} />
+          <Textarea name="message" placeholder="Short message" rows={5} required />
           <Input type="file" name="attachment" />
           <Button type="submit" variant="gradient">Send Message</Button>
         </form>

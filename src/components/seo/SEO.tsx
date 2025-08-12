@@ -6,12 +6,14 @@ interface SEOProps {
   description: string;
   path?: string;
   structuredData?: Record<string, any> | Record<string, any>[];
+  image?: string;
 }
 
-const SEO = ({ title, description, path, structuredData }: SEOProps) => {
+const SEO = ({ title, description, path, structuredData, image }: SEOProps) => {
   const location = useLocation();
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const canonical = origin + (path || location.pathname || '/');
+  const ogImage = image || `${origin}/opengraph-default.png`;
 
   return (
     <Helmet>
@@ -23,8 +25,10 @@ const SEO = ({ title, description, path, structuredData }: SEOProps) => {
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />
+      <meta property="og:image" content={ogImage} />
 
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={ogImage} />
 
       {structuredData && (
         Array.isArray(structuredData) ? structuredData : [structuredData]
