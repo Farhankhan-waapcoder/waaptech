@@ -5,11 +5,13 @@ type RevealProps = {
   className?: string;
   /** Delay before animation start (ms) once visible */
   delayMs?: number;
+  /** Animation duration in milliseconds */
+  durationMs?: number;
   /** Initial vertical offset in pixels (positive moves down) */
   offsetY?: number;
 };
 
-const Reveal: React.FC<RevealProps> = ({ children, className, delayMs = 0, offsetY = 12 }) => {
+const Reveal: React.FC<RevealProps> = ({ children, className, delayMs = 0, durationMs = 1400, offsetY = 12 }) => {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -44,10 +46,13 @@ const Reveal: React.FC<RevealProps> = ({ children, className, delayMs = 0, offse
     <div
       ref={ref}
       className={[
-        "transition-all duration-[1400ms]",
+        "transition-all",
         visible ? "opacity-100 translate-y-0" : `opacity-0 translate-y-[${offsetY}px]`,
         className ?? "",
       ].join(" ")}
+      style={{
+        transitionDuration: `${durationMs}ms`,
+      }}
     >
       {children}
     </div>
